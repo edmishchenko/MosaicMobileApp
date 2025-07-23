@@ -9,27 +9,6 @@ import { initDatabase } from "../utils/database/initDb";
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 export default function RootLayout() {
-  useEffect(() => {
-    const setup = async () => {
-      await initDatabase();
-      console.log('✅ Database initialized');
-
-      const unsubscribe = NetInfo.addEventListener(async (state) => {
-        if (state.isConnected) {
-          console.log('[NetInfo] Connected, starting sync...');
-          await syncAllToFirestore();
-        }
-      });
-
-      return () => {
-        unsubscribe();
-      };
-    };
-
-    setup().then(() => {
-      console.log('App setup completed');
-    });
-  }, []);
 
   return (
     <SafeAreaProvider>

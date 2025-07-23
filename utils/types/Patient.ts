@@ -8,6 +8,7 @@ export interface Patient {
     photo: string; // URL or local path
     notes: string;
     sync: boolean;
+    is_deleted: boolean;
     created_at: string; // ISO string or Firestore timestamp
     updated_at: string;
 }

@@ -93,6 +93,7 @@ export default function AddPatientPage() {
         photo: photos.length > 0 ? photos[0] : '',
         notes: notes,
         sync: false,
+        is_deleted: false,
         created_at: now,
         updated_at: now
       };
