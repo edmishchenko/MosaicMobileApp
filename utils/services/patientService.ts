@@ -5,12 +5,17 @@ import { withTableCheck } from '../database/ensureTable';
 
 export const getAllPatients = async (): Promise<Patient[]> => {
     return withTableCheck('patients', async () => {
-        const rows = await db.getAllAsync(
-            'SELECT * FROM patients WHERE is_deleted != 1',
-            []
-        );
-        console.log("All patients: ", rows);
-        return (rows ?? []) as Patient[];
+        try {
+            console.log("About to execute query...");
+            const rows = await db.getAllAsync(
+                'SELECT * FROM patients WHERE is_deleted != 1'
+            );
+            console.log("Query executed successfully, rows:", rows?.length);
+            return (rows ?? []) as Patient[];
+        } catch (error) {
+            console.error("Database query failed:", error);
+            throw error;
+        }
     });
 }
 

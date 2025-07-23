@@ -128,12 +128,13 @@ function ItemSelectionModal({ type, items, onItemsChange, onClose }: ItemModalPr
       // Combine stored suggestions with default ones
       const defaultSuggestions =
         type === 'procedure' ? SAMPLE_PROCEDURES : SAMPLE_PRODUCTS;
+      // @ts-ignore
       const combined = [...defaultSuggestions, ...(stored[typeKey] || [])];
 
       // Remove duplicates and sort by usage count
       const unique = combined.reduce((acc, item) => {
         const existing = acc.find(
-          (a) => a.text.toLowerCase() === item.text.toLowerCase()
+          (a: { text: string; }) => a.text.toLowerCase() === item.text.toLowerCase()
         );
         if (existing) {
           existing.usageCount += item.usageCount;
@@ -143,7 +144,7 @@ function ItemSelectionModal({ type, items, onItemsChange, onClose }: ItemModalPr
         return acc;
       }, [] as SuggestionItem[]);
 
-      unique.sort((a, b) => b.usageCount - a.usageCount);
+      unique.sort((a: { usageCount: number; }, b: { usageCount: number; }) => b.usageCount - a.usageCount);
       setAllSuggestions(unique);
     } catch (error) {
       console.error('Error loading suggestions:', error);

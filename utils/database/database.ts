@@ -11,6 +11,7 @@ if (Platform.OS === 'web') {
   // Use SQLite for mobile platforms
   const { openDatabaseSync } = require('expo-sqlite');
   db = openDatabaseSync('beauty.db');
+  console.log('SQLite database opened', db.name);
 }
 
 export default db;
